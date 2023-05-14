@@ -1,38 +1,144 @@
+* {
+    box-sizing: border-box;
+    color: black;
+}
+
 .App {
-  text-align: center;
+    padding: 50px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+a {
+    text-decoration: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+form, .contact, .chat__window, .chat__messages {
+    display: flex;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+form {
+    margin: 0 auto;
+    flex-direction: column;
 }
 
-.App-link {
-  color: #61dafb;
+.login__form {
+    max-width: 300px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #5eb043;
+    margin: 10px 0 20px 0;
+    padding: 0 10px;
+}
+
+input, .chat {
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    background-color: #5eb043;
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+}
+
+.chat {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    background-color: rgba(128, 128, 128, 0.07);
+    width: 100%;
+}
+
+.chat {
+    border: 1px solid #5eb043;
+}
+
+.chat > div:first-child {
+    border-right: 1px solid #5eb043;
+}
+
+.chat > div:last-child,
+.chat__window {
+    padding: 5px;
+}
+
+.chat__new {
+    text-align: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #5eb043;
+}
+
+.chat__new > input {
+    margin-bottom: 3px;
+}
+
+.chat__new > button {
+    margin-top: 10px;
+}
+
+.chat__window {
+    background-color: white;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+}
+
+.chat__messages {
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 20px;
+}
+
+.chat__messages > div {
+    background-color: rgba(179, 185, 183, 0.22);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.chat__window > form {
+    flex-direction: row;
+    width: 100%;
+}
+
+.chat__window > form > button {
+    max-width: 100px;
+    border-radius: 0 5px 5px 0;
+}
+
+.chat__window > form > input {
+    height: 40px;
+    margin: 0;
+    border-radius: 5px 0 0 5px;
+}
+
+.chats {
+    background-color: white;
+    min-height: 500px;
+    padding: 0 10px;
+}
+
+.contact {
+    padding: 5px;
+    align-items: center;
+}
+
+.contact > img {
+    margin-right: 10px;
+    height: 50px;
+    width: 50px;
+    border-radius: 15px;
+}
+
+.number__invalid {
+    color: red;
+    font-size: 10px;
 }
