@@ -1,12 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
-const ChatWindow = () => {
+const ChatWindow = ({phoneNumber, idInstance, apiTokenInstance}) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-
-    useEffect(() => {
-        // Fetch the initial messages from the server here
-    }, []);
 
     const handleSendMessage = async (event) => {
         event.preventDefault();
@@ -14,9 +10,7 @@ const ChatWindow = () => {
             return;
         }
 
-        const idInstance = localStorage.getItem('idInstance');
-        const apiTokenInstance = localStorage.getItem('apiTokenInstance');
-        const phoneNumber = localStorage.getItem('phoneNumber');
+        console.log(phoneNumber);
 
         const requestOptions = {
             method: 'POST',

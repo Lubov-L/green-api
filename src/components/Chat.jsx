@@ -1,19 +1,17 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Contact from './Contact';
 import ChatWindow from "./ChatWindow";
 
-const Chat = () => {
+const Chat = ({idInstance, apiTokenInstance}) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [chats, setChats] = useState([]);
     const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);
 
     const handleCreateChat = () => {
 
-        const isValidPhoneNumber = /\d{8,13}$/.test(phoneNumber);
+        const isValidPhoneNumber = /^\d{8,13}$/.test(phoneNumber);
         if (isValidPhoneNumber) {
-            localStorage.setItem('phoneNumber', phoneNumber);
-
-            setChats(prevChats => [...prevChats, {phoneNumber}]);
+            setChats(prevChats => [...prevChats, { phoneNumber }]);
             setPhoneNumber('');
             setIsPhoneNumberValid(true);
         } else {
@@ -39,12 +37,12 @@ const Chat = () => {
                 </div>
                 <div className="chats">
                     {chats.map((chat, index) => (
-                        <Contact key={index} phoneNumber={chat.phoneNumber}/>
+                        <Contact key={index} phoneNumber={chat.phoneNumber} />
                     ))}
                 </div>
             </div>
             <div>
-                <ChatWindow phoneNumber={phoneNumber}/>
+                <ChatWindow phoneNumber={chats.at(0).phoneNumber} idInstance={idInstance} apiTokenInstance={apiTokenInstance} />
             </div>
         </div>
     );
