@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
+import Contact from "./Contact";
 
-const ChatWindow = ({phoneNumber, idInstance, apiTokenInstance}) => {
+const ChatWindow = ({ idInstance, apiTokenInstance }) => {
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
+    const [allMessages, setAllMessages] = useState([]);
+
+    const currentPhoneNumber = localStorage.getItem('phoneNumber');
 
     const handleSendMessage = async (event) => {
         event.preventDefault();
@@ -10,13 +13,11 @@ const ChatWindow = ({phoneNumber, idInstance, apiTokenInstance}) => {
             return;
         }
 
-        console.log(phoneNumber);
-
         const requestOptions = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                chatId: phoneNumber + '@c.us',
+                chatId: currentPhoneNumber + '@c.us',
                 message: message
             })
         };
@@ -25,21 +26,59 @@ const ChatWindow = ({phoneNumber, idInstance, apiTokenInstance}) => {
         const result = await response.json();
         console.log(result);
 
-        setMessages([...messages, {text: message, sender: 'me'}]);
+        setAllMessages(prevMessages => [...prevMessages, { text: message, sender: 'me' }]);
         setMessage('');
     };
 
+    const receiveMessages = async () => {
+        const response = await fetch(`https://api.green-api.com/waInstance${idInstance}/ReceiveNotification/${apiTokenInstance}`);
+        const result = await response.json();
+
+        if (result) {
+            console.log(result.receiptId);
+            console.log(result.body.typeWebhook);
+            await deleteNotification(result.receiptId)
+
+            if (result.body.typeWebhook === 'incomingMessageReceived') {
+                setAllMessages(prevMessages => [...prevMessages, { text: result.body.messageData.textMessageData.textMessage, sender: 'not me' }]);
+            }
+        }
+    };
+
+    const deleteNotification = async (receiptId) => {
+        const requestOptions = {
+            method: 'DELETE',
+        };
+
+        const response = await fetch(`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`, requestOptions);
+        const result = await response.json();
+
+        console.log(result);
+    };
+
+    useEffect(() => {
+        receiveMessages().then(r => []);
+        const interval = setInterval(receiveMessages, 2000);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [receiveMessages]);
+
     return (
         <div className="chat__window">
+            <div className="chats">
+                <Contact phoneNumber={currentPhoneNumber} />
+            </div>
             <div className="chat__messages">
-                {messages.map((msg, idx) => (
-                    <div key={idx} className={`message ${msg.sender === 'me' ? 'sent' : 'received'}`}>
+                {allMessages.map((msg, idx) => (
+                    <div key={idx} className={`message ${msg.sender === 'me' ? 'outgoing' : 'incoming'}`}>
                         {msg.text}
                     </div>
                 ))}
             </div>
             <form onSubmit={handleSendMessage}>
-                <input type="text" value={message} onChange={(event) => setMessage(event.target.value)}/>
+                <input type="text" value={message} onChange={(event) => setMessage(event.target.value)} />
                 <button type="submit">send</button>
             </form>
         </div>

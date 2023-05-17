@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Chat from "./Chat";
+import NewChat from "./NewChat";
 
 const Login = () => {
     const [idInstance, setIdInstance] = useState('');
@@ -23,7 +23,7 @@ const Login = () => {
     }
 
     if (isLoggedIn) {
-        return <Chat idInstance={idInstance} apiTokenInstance={apiTokenInstance} />;
+        return <NewChat idInstance={idInstance} apiTokenInstance={apiTokenInstance} />;
     }
 
     return (
