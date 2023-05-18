@@ -49,7 +49,7 @@ const ChatWindow = ({ idInstance, apiTokenInstance }) => {
     };
 
     useEffect(() => {
-        const interval = setInterval(receiveMessages, 5000);
+        const interval = setInterval(receiveMessages, 2000);
 
         return () => {
             clearInterval(interval);

@@ -34,10 +34,13 @@ input, button, .chat__window > form, .chat__window {
     width: 100%;
 }
 
+label, input {
+    margin-top: 10px;
+}
+
 input {
     height: 30px;
     border: 1px solid #5eb043;
-    margin: 10px 0 20px 0;
     padding: 0 10px;
 }
 
@@ -51,6 +54,7 @@ button {
     border-radius: 8px;
     background-color: #5eb043;
     text-transform: uppercase;
+    margin-top: 20px;
 }
 
 .contact > div,
@@ -90,6 +94,8 @@ button {
     height: 500px;
     overflow-y: scroll;
     -ms-overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .chat__messages {
@@ -115,6 +121,12 @@ button {
 .chat__window > form {
     flex-direction: row;
     padding: 0 30px;
+    align-items: flex-end;
+}
+
+.chat__window > form > button,
+.chat__window > form > input {
+    margin: 0;
 }
 
 .chat__window > form > button {
@@ -124,7 +136,6 @@ button {
 
 .chat__window > form > input {
     height: 40px;
-    margin: 0;
     border: 2px solid #5eb043;
     border-radius: 5px 0 0 5px;
 }
@@ -146,7 +157,7 @@ button {
     border-radius: 15px;
 }
 
-.number__invalid {
+.number__invalid, .id__invalid, .token__invalid {
     color: red;
     font-size: 10px;
 }
