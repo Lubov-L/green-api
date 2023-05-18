@@ -62,12 +62,14 @@ const ChatWindow = ({ idInstance, apiTokenInstance }) => {
             <div className="chats">
                 <Contact phoneNumber={currentPhoneNumber} />
             </div>
-            <div className="chat__messages">
-                {allMessages.map((msg, idx) => (
-                    <div key={idx} className={`message ${msg.sender === 'me' ? 'outgoing' : 'incoming'}`}>
-                        {msg.text}
-                    </div>
-                ))}
+            <div className="wrapper">
+                <div className="chat__messages">
+                    {allMessages.map((msg, idx) => (
+                        <div key={idx} className={`message ${msg.sender === 'me' ? 'outgoing' : 'incoming'}`}>
+                            {msg.text}
+                        </div>
+                    ))}
+                </div>
             </div>
             <form onSubmit={handleSendMessage}>
                 <input type="text" value={message} onChange={(event) => setMessage(event.target.value)} />

@@ -5,6 +5,11 @@
 
 .App {
     padding: 50px;
+    max-width: 1000px;
+}
+
+.App, form {
+    margin: 0 auto;
 }
 
 a {
@@ -16,7 +21,6 @@ form, .contact, .chat__window, .chat__messages {
 }
 
 form {
-    margin: 0 auto;
     flex-direction: column;
 }
 
@@ -66,6 +70,14 @@ button {
     padding: 10px 20px;
 }
 
+.chat__new > input {
+    margin-bottom: 5px;
+}
+
+.chat__new > button {
+    margin-top: 10px;
+}
+
 .chat__window {
     background-color: white;
     flex-direction: column;
@@ -74,12 +86,23 @@ button {
     height: 100%;
 }
 
+.wrapper {
+    height: 500px;
+    overflow-y: scroll;
+    -ms-overflow-y: scroll;
+}
+
 .chat__messages {
-    min-height: 500px;
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
+    margin: 0 30px;
     padding: 10px;
+}
+
+.wrapper, .chat__messages {
+    min-height: 500px;
+    transform: scaleY(-1);
 }
 
 .message {
@@ -91,7 +114,7 @@ button {
 
 .chat__window > form {
     flex-direction: row;
-    padding: 0 10px;
+    padding: 0 30px;
 }
 
 .chat__window > form > button {
@@ -102,18 +125,22 @@ button {
 .chat__window > form > input {
     height: 40px;
     margin: 0;
+    border: 2px solid #5eb043;
     border-radius: 5px 0 0 5px;
+}
+
+.chat__window > form > input:focus {
+    outline: none !important;
 }
 
 .contact {
     background-color: #5eb043;
     padding: 10px 20px;
     align-items: center;
-    border-bottom: 2px solid #5eb043;
 }
 
 .contact > img {
-    margin-right: 10px;
+    margin: 0 15px;
     height: 50px;
     width: 50px;
     border-radius: 15px;
