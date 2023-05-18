@@ -4,7 +4,6 @@ import Contact from "./Contact";
 const ChatWindow = ({ idInstance, apiTokenInstance }) => {
     const [message, setMessage] = useState('');
     const [allMessages, setAllMessages] = useState([]);
-
     const currentPhoneNumber = localStorage.getItem('phoneNumber');
 
     const handleSendMessage = async (event) => {
@@ -22,9 +21,7 @@ const ChatWindow = ({ idInstance, apiTokenInstance }) => {
             })
         };
 
-        const response = await fetch(`https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`, requestOptions);
-        const result = await response.json();
-        console.log(result);
+        await fetch(`https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`, requestOptions);
 
         setAllMessages(prevMessages => [...prevMessages, { text: message, sender: 'me' }]);
         setMessage('');
@@ -35,8 +32,6 @@ const ChatWindow = ({ idInstance, apiTokenInstance }) => {
         const result = await response.json();
 
         if (result) {
-            console.log(result.receiptId);
-            console.log(result.body.typeWebhook);
             await deleteNotification(result.receiptId)
 
             if (result.body.typeWebhook === 'incomingMessageReceived') {
@@ -50,15 +45,11 @@ const ChatWindow = ({ idInstance, apiTokenInstance }) => {
             method: 'DELETE',
         };
 
-        const response = await fetch(`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`, requestOptions);
-        const result = await response.json();
-
-        console.log(result);
+        await fetch(`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`, requestOptions);
     };
 
     useEffect(() => {
-        receiveMessages().then(r => []);
-        const interval = setInterval(receiveMessages, 2000);
+        const interval = setInterval(receiveMessages, 5000);
 
         return () => {
             clearInterval(interval);

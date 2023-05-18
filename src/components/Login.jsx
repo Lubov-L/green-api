@@ -13,12 +13,11 @@ const Login = () => {
             .then((response) => {
                 return response.json();
             })
-            .then((data) => {
-                console.log(data);
+            .then(() => {
                 setIsLoggedIn(true);
             })
-            .catch((error) => {
-                console.error('Error:', error);
+            .catch(() => {
+                alert('Неверные данные');
             });
     }
 
