@@ -90,6 +90,10 @@ button {
     height: 100%;
 }
 
+.wrapper::-webkit-scrollbar {
+    display: none;
+}
+
 .wrapper {
     height: 500px;
     overflow-y: scroll;
