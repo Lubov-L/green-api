@@ -63,7 +63,8 @@ const ChatWindow = ({ idInstance, apiTokenInstance }) => {
         return () => {
             clearInterval(interval);
         };
-    }, [receiveMessages]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="chat__window">
